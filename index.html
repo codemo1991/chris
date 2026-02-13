@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/about.html">关于</a></li>
+                    <li><a href="/archive.html">归档</a></li>
+                    <li><a href="/tags.html">标签</a></li>
+                    <li><a href="/contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>欢迎来到我的技术博客</h1>
+            <p>分享编程、AI、Web开发等技术心得</p>
+            <a href="#recent-posts" class="btn">查看最新文章</a>
+        </section>
+
+        <section id="recent-posts" class="posts">
+            <h2>最新文章</h2>
+            <div class="post-grid">
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月13日</span>
+                        <span class="category">AI开发</span>
+                    </div>
+                    <h3><a href="posts/first-post.html">如何搭建GitHub博客</a></h3>
+                    <p>详细记录使用GitHub Pages搭建个人技术博客的完整过程，包括主题选择、配置优化和自动化部署。</p>
+                    <div class="tags">
+                        <span class="tag">GitHub</span>
+                        <span class="tag">博客</span>
+                        <span class="tag">技术</span>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月12日</span>
+                        <span class="category">Web开发</span>
+                    </div>
+                    <h3><a href="posts/nanobot-webui.html">优化nanobot-webui的经验分享</a></h3>
+                    <p>分享在优化nanobot-webui项目中的实践经验和遇到的问题解决方案。</p>
+                    <div class="tags">
+                        <span class="tag">AI助手</span>
+                        <span class="tag">WebUI</span>
+                        <span class="tag">优化</span>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月11日</span>
+                        <span class="category">工具</span>
+                    </div>
+                    <h3><a href="posts/glm-integration.html">GLM API接入指南</a></h3>
+                    <p>详细介绍如何将GLM大模型API集成到现有项目中，包括认证、调用和错误处理。</p>
+                    <div class="tags">
+                        <span class="tag">GLM</span>
+                        <span class="tag">API</span>
+                        <span class="tag">AI</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about-preview">
+            <h2>关于我</h2>
+            <p>我是一名热爱技术的开发者，专注于AI、Web开发和自动化工具。在这里分享我的学习和实践经验。</p>
+            <a href="/about.html" class="btn-outline">了解更多</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/archive.html">归档</a></li>
+                        <li><a href="/tags.html">标签</a></li>
+                        <li><a href="/rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/yourusername"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何搭建GitHub博客 | 我的技术博客</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+        
+        .article-body {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .article-body h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-body h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text-color);
+        }
+        
+        .article-body p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .code-block code {
+            color: var(--text-color);
+        }
+        
+        .tip {
+            background-color: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .tip strong {
+            color: var(--primary-color);
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="../index.html" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../about.html">关于</a></li>
+                    <li><a href="../archive.html">归档</a></li>
+                    <li><a href="../tags.html">标签</a></li>
+                    <li><a href="../contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="article-content">
+            <header class="article-header">
+                <h1 class="article-title">如何搭建GitHub博客</h1>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar"></i> 2026年2月13日</span>
+                    <span><i class="far fa-clock"></i> 阅读时间：8分钟</span>
+                    <span><i class="far fa-folder"></i> AI开发</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">GitHub</span>
+                    <span class="tag">博客</span>
+                    <span class="tag">技术</span>
+                    <span class="tag">教程</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>GitHub Pages 是 GitHub 提供的一个免费的静态网站托管服务，非常适合用来搭建个人博客。本文将详细介绍如何使用 GitHub Pages 搭建一个美观、功能齐全的技术博客。</p>
+
+                <h2>1. 准备工作</h2>
+                <p>在开始之前，你需要准备以下工具：</p>
+                <ul>
+                    <li>一个 GitHub 账号</li>
+                    <li>Git 客户端（已安装）</li>
+                    <li>文本编辑器（如 VS Code）</li>
+                    <li>基本的 HTML/CSS/JavaScript 知识</li>
+                </ul>
+
+                <h2>2. 创建 GitHub 仓库</h2>
+                <p>首先，登录 GitHub 并创建一个新的仓库：</p>
+                
+                <div class="code-block">
+                    <pre><code>仓库名称：yourusername.github.io
+描述：我的个人技术博客
+公开仓库
+初始化 README 文件</code></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>提示：</strong> 仓库名称必须是 <code>你的用户名.github.io</code> 格式，这样 GitHub 会自动将其识别为 GitHub Pages 网站。
+                </div>
+
+                <h2>3. 本地项目初始化</h2>
+                <p>将仓库克隆到本地，并创建基本的项目结构：</p>
+
+                <div class="code-block">
+                    <pre><code># 克隆仓库
+git clone https://github.com/yourusername/yourusername.github.io.git
+cd yourusername.github.io
+
+# 创建项目结构
+mkdir css js posts images
+touch index.html about.html archive.html
+touch css/style.css js/script.js</code></pre>
+                </div>
+
+                <h2>4. 设计博客主题</h2>
+                <p>一个好的博客需要美观的设计。你可以：</p>
+                <ul>
+                    <li>使用现成的模板（如 Jekyll 主题）</li>
+                    <li>自己设计响应式布局</li>
+                    <li>添加暗色/亮色主题切换</li>
+                    <li>优化移动端体验</li>
+                </ul>
+
+                <h2>5. 编写博客内容</h2>
+                <p>创建文章模板，确保每篇文章都有：</p>
+                <ul>
+                    <li>清晰的标题和元数据</li>
+                    <li>目录结构</li>
+                    <li>代码高亮支持</li>
+                    <li>图片和多媒体支持</li>
+                    <li>标签和分类系统</li>
+                </ul>
+
+                <h2>6. 部署到 GitHub Pages</h2>
+                <p>将本地代码推送到 GitHub：</p>
+
+                <div class="code-block">
+                    <pre><code># 添加所有文件
+git add .
+
+# 提交更改
+git commit -m "初始化博客项目"
+
+# 推送到 GitHub
+git push origin main</code></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>注意：</strong> 推送后，GitHub Pages 会自动构建并部署你的网站。通常需要几分钟时间才能通过 <code>https://yourusername.github.io</code> 访问。
+                </div>
+
+                <h2>7. 高级功能配置</h2>
+                <h3>7.1 自定义域名</h3>
+                <p>如果你有自己的域名，可以在仓库设置中配置：</p>
+                <ol>
+                    <li>在域名注册商处添加 CNAME 记录</li>
+                    <li>在 GitHub 仓库设置中添加自定义域名</li>
+                    <li>在项目根目录创建 <code>CNAME</code> 文件</li>
+                </ol>
+
+                <h3>7.2 添加评论系统</h3>
+                <p>可以使用以下服务为博客添加评论功能：</p>
+                <ul>
+                    <li>Disqus</li>
+                    <li>Giscus（基于 GitHub Discussions）</li>
+                    <li>Utterances（基于 GitHub Issues）</li>
+                </ul>
+
+                <h3>7.3 搜索引擎优化</h3>
+                <p>优化博客的 SEO：</p>
+                <ul>
+                    <li>添加 meta 标签和描述</li>
+                    <li>创建 sitemap.xml</li>
+                    <li>提交到 Google Search Console</li>
+                    <li>使用语义化 HTML 标签</li>
+                </ul>
+
+                <h2>8. 持续维护</h2>
+                <p>博客搭建完成后，还需要：</p>
+                <ul>
+                    <li>定期更新内容</li>
+                    <li>备份重要数据</li>
+                    <li>监控网站性能</li>
+                    <li>与读者互动</li>
+                </ul>
+
+                <h2>总结</h2>
+                <p>使用 GitHub Pages 搭建博客是一个经济实惠且技术含量较高的选择。它不仅免费，还能让你完全控制博客的每一个细节。通过不断优化和更新，你的技术博客将成为展示个人技能和分享知识的重要平台。</p>
+
+                <p>希望这篇教程对你有所帮助！如果你在搭建过程中遇到任何问题，欢迎在评论区留言讨论。</p>
+
+                <a href="../index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../archive.html">归档</a></li>
+                        <li><a href="../tags.html">标签</a></li>
+                        <li><a href="../rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/yourusername"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
