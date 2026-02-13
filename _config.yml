@@ -1,0 +1,33 @@
+# Site settings
+title: "Linjifeng's Blog"
+description: "Personal blog about technology, programming, and thoughts"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://linjifeng.github.io" # the base hostname & protocol for your site
+github_username: linjifeng
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Minima theme settings
+minima:
+  skin: auto
+  date_format: "%Y-%m-%d"
+  social_links:
+    - platform: github
+      user_url: "https://github.com/linjifeng"
+    - platform: email
+      user_url: "mailto:linjifeng@gyenno.com"
