@@ -6,7 +6,7 @@ permalink: /about/
 
 # About Me
 
-Hi, I'm Linjifeng! I'm passionate about technology and software development.
+Hi, I'm Chris! I'm passionate about technology and software development.
 
 ## What I Do
 - Software Engineer
@@ -21,8 +21,8 @@ Hi, I'm Linjifeng! I'm passionate about technology and software development.
 - **Interests**: AI, Web Development, DevOps, Cloud Computing
 
 ## Contact
-- GitHub: [@linjifeng](https://github.com/linjifeng)
-- Email: linjifeng@gyenno.com
+- GitHub: [@codemo1991](https://github.com/codemo1991)
+- Email: codemo1991@example.com
 
 ## Projects
-Check out my [GitHub profile](https://github.com/linjifeng) for my latest projects and contributions.
+Check out my [GitHub profile](https://github.com/codemo1991) for my latest projects and contributions.

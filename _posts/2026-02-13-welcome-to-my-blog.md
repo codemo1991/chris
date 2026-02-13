@@ -44,8 +44,8 @@ git init
 git add .
 git commit -m "Initial blog setup"
 git branch -M main
-git remote add origin https://github.com/linjifeng/linjifeng.github.io
-git push -u origin main
+git remote add origin https://github.com/codemo1991/chris.github.io
+git push -u origin master
 ```
 
 Then enable GitHub Pages in repository settings, and your site goes live at `https://linjifeng.github.io`.

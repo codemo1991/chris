@@ -4,7 +4,7 @@ title: "Welcome to My Blog"
 subtitle: "Thoughts on Technology, Programming, and Life"
 ---
 
-# Hello, I'm Linjifeng 👋
+# Hello, I'm Chris 👋
 
 Welcome to my personal blog! I write about:
 - Software development
