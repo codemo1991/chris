@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式测试页面</title>
+    <link rel="stylesheet" href="assets/css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">样式测试</a>
+                <ul class="nav-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/about">关于</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>现代化博客样式测试</h1>
+            <p>测试深色/浅色主题切换、响应式设计和卡片布局</p>
+            <a href="#test-section" class="btn">开始测试</a>
+        </section>
+
+        <section id="test-section" class="posts">
+            <h2>测试卡片</h2>
+            <div class="post-grid">
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月13日</span>
+                        <span class="category">测试</span>
+                    </div>
+                    <h3><a href="#">卡片1：样式测试</a></h3>
+                    <p>这是一个测试卡片，用于验证CSS样式是否正确应用。卡片应该有阴影、圆角和悬停效果。</p>
+                    <div class="tags">
+                        <span class="tag">CSS</span>
+                        <span class="tag">测试</span>
+                        <span class="tag">样式</span>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月13日</span>
+                        <span class="category">响应式</span>
+                    </div>
+                    <h3><a href="#">卡片2：响应式测试</a></h3>
+                    <p>测试响应式布局，在小屏幕上应该自动调整为单列布局。</p>
+                    <div class="tags">
+                        <span class="tag">响应式</span>
+                        <span class="tag">布局</span>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月13日</span>
+                        <span class="category">主题</span>
+                    </div>
+                    <h3><a href="#">卡片3：主题切换测试</a></h3>
+                    <p>测试深色/浅色主题切换功能，点击右上角的月亮/太阳图标可以切换主题。</p>
+                    <div class="tags">
+                        <span class="tag">主题</span>
+                        <span class="tag">深色模式</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about-preview">
+            <h2>测试完成</h2>
+            <p>如果所有卡片都正常显示，并且主题切换功能正常工作，说明样式已成功应用。</p>
+            <a href="https://codemo1991.github.io/chris/" class="btn-outline">查看实际博客</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>样式测试</h3>
+                    <p>现代化博客样式验证</p>
+                </div>
+                <div class="footer-section">
+                    <h3>功能测试</h3>
+                    <ul>
+                        <li>✅ 导航栏</li>
+                        <li>✅ 卡片布局</li>
+                        <li>✅ 主题切换</li>
+                        <li>✅ 响应式设计</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 样式测试页面</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // 检查本地存储的主题设置
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+    </script>
+</body>
+</html>
