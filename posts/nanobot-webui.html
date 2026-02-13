@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nanobot-webui：为个人AI助手打造现代化的Web管理界面 | 我的技术博客</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+        
+        .article-body {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .article-body h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-body h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text-color);
+        }
+        
+        .article-body p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .code-block code {
+            color: var(--text-color);
+        }
+        
+        .tip {
+            background-color: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .tip strong {
+            color: var(--primary-color);
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+        
+        .image-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-caption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+        
+        .feature-item h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="../index.html" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../about.html">关于</a></li>
+                    <li><a href="../archive.html">归档</a></li>
+                    <li><a href="../tags.html">标签</a></li>
+                    <li><a href="../contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="article-content">
+            <header class="article-header">
+                <h1 class="article-title">nanobot-webui：为个人AI助手打造现代化的Web管理界面</h1>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar"></i> 2026年2月13日</span>
+                    <span><i class="far fa-clock"></i> 阅读时间：10分钟</span>
+                    <span><i class="far fa-folder"></i> AI开发</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">AI助手</span>
+                    <span class="tag">开源项目</span>
+                    <span class="tag">Web开发</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">React</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>作为一名程序员，我一直在寻找能够提升工作效率的AI工具。最近发现了一个非常有趣的开源项目——<strong>nanobot-webui</strong>，这是一个基于 nanobot 的现代化Web界面，让个人AI助手的管理变得前所未有的简单直观。</p>
+
+                <p>今天就来和大家分享一下这个项目的亮点，以及为什么我认为它值得每个开发者关注。</p>
+
+                <h2>项目背景</h2>
+                <p>nanobot-webui 是基于 <a href="https://github.com/HKUDS/nanobot" target="_blank">nanobot</a> 项目的二次开发版本。原版 nanobot 是一个轻量级的个人AI助手，受 Clawdbot 启发，仅用约4000行核心代码就实现了完整的Agent功能。</p>
+
+                <p>然而，原版 nanobot 主要通过命令行配置，缺乏直观的管理界面，每次修改配置都需要重启服务。这正是 nanobot-webui 要解决的问题。</p>
+
+                <h2>核心特性</h2>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h4>🎯 现代化的Web管理界面</h4>
+                        <p>nanobot-webui 最大的亮点就是它的React + TypeScript单页应用。界面设计简洁现代，主要分为三个部分：聊天界面、配置管理和系统状态监控。</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <h4>🌐 多平台渠道支持</h4>
+                        <p>除了原有的Telegram、WhatsApp、飞书外，新增了Discord、QQ和钉钉支持。可以通过自己最习惯的聊天工具与AI助手交互。</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <h4>🔧 MCP协议集成</h4>
+                        <p>Model Context Protocol (MCP) 是AI领域的新兴标准，nanobot-webui 通过 stdio/HTTP/SSE 协议支持MCP，可以轻松接入外部工具和服务。</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <h4>📊 丰富的技能库</h4>
+                        <p>项目内置了多个实用的Skills：代码审查专家、办公文档处理、技能创建工具等，满足各种使用场景。</p>
+                    </div>
+                </div>
+
+                <h2>界面展示</h2>
+
+                <h3>聊天界面</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/chat.png" alt="nanobot-webui聊天界面">
+                    <p class="image-caption">支持Markdown渲染，可以查看天气、执行任务等</p>
+                </div>
+
+                <h3>系统状态监控</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/system_status.png" alt="系统状态监控界面">
+                    <p class="image-caption">实时显示服务健康状态、运行时长、会话数量等</p>
+                </div>
+
+                <h3>多渠道配置</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/setting_channels.png" alt="Channels配置界面">
+                    <p class="image-caption">一站式管理所有IM渠道</p>
+                </div>
+
+                <h3>AI模型提供商管理</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/setting_providers.png" alt="Providers配置界面">
+                    <p class="image-caption">支持DeepSeek、通义千问、智谱、OpenAI、Anthropic等主流模型</p>
+                </div>
+
+                <h3>MCP服务管理</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/mcp.png" alt="MCP配置界面">
+                    <p class="image-caption">轻松配置和管理MCP服务</p>
+                </div>
+
+                <h3>技能管理</h3>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/codemo1991/nanobot-webui/main/case/skills.png" alt="Skills管理界面">
+                    <p class="image-caption">查看和管理所有可用技能</p>
+                </div>
+
+                <h2>快速上手</h2>
+
+                <h3>安装步骤</h3>
+                <div class="code-block">
+                    <pre><code># 克隆项目
+git clone https://github.com/HKUDS/nanobot.git
+cd nanobot
+pip install -e .</code></pre>
+                </div>
+
+                <h3>一键启动</h3>
+                <p>项目提供了便捷的启动脚本：</p>
+                <ul>
+                    <li><strong>Windows用户</strong>：双击 <code>startup.bat</code></li>
+                    <li><strong>Linux/macOS用户</strong>：
+                        <div class="code-block">
+                            <pre><code>chmod +x startup.sh
+./startup.sh</code></pre>
+                        </div>
+                    </li>
+                </ul>
+                <p>启动后访问 <a href="http://127.0.0.1:6788" target="_blank">http://127.0.0.1:6788</a> 即可使用。</p>
+
+                <h3>Docker部署</h3>
+                <p>对于生产环境，推荐使用Docker：</p>
+                <div class="code-block">
+                    <pre><code># 构建镜像
+docker build -t nanobot-webui .
+
+# 启动容器（推荐挂载数据卷）
+docker run -d -p 6788:6788 -v nanobot-data:/root/.nanobot --name nanobot nanobot-webui</code></pre>
+                </div>
+
+                <h2>技术架构</h2>
+                <p>nanobot-webui 采用了清晰的分层架构：</p>
+                <div class="code-block">
+                    <pre><code>nanobot/
+├── agent/          # 核心Agent逻辑
+├── channels/       # 各平台渠道实现
+├── web/            # REST API服务
+├── mcp/            # MCP协议支持
+├── storage/        # SQLite数据存储
+├── services/       # 系统服务
+├── skills/         # 技能库
+└── cli/            # 命令行工具
+web-ui/             # React前端应用</code></pre>
+                </div>
+                <p>这种架构设计使得项目具有良好的可扩展性和可维护性。</p>
+
+                <h2>为什么选择nanobot-webui？</h2>
+                <ul>
+                    <li><strong>开箱即用</strong>：项目提供了完整的解决方案，从AI模型集成到Web界面，无需复杂的配置。</li>
+                    <li><strong>高度可定制</strong>：无论是AI模型、聊天渠道还是功能技能，都可以根据需求灵活配置。</li>
+                    <li><strong>社区活跃</strong>：基于nanobot生态，有活跃的开发者社区支持。</li>
+                    <li><strong>学习价值</strong>：对于想学习AI Agent开发、Web前后端集成的开发者来说，这是一个很好的学习项目。</li>
+                </ul>
+
+                <h2>实际应用场景</h2>
+
+                <h3>个人效率助手</h3>
+                <ul>
+                    <li>通过Telegram/QQ与AI助手聊天，获取天气、新闻等信息</li>
+                    <li>使用文档处理技能快速处理办公文件</li>
+                    <li>代码审查助手帮助提高代码质量</li>
+                </ul>
+
+                <h3>团队协作工具</h3>
+                <ul>
+                    <li>集成到钉钉，作为团队的知识问答助手</li>
+                    <li>通过Discord为开发者社区提供技术支持</li>
+                    <li>自动化处理团队文档和报告</li>
+                </ul>
+
+                <h3>开发测试平台</h3>
+                <ul>
+                    <li>作为AI Agent开发的测试平台</li>
+                    <li>学习MCP协议的实际应用</li>
+                    <li>研究多模型AI系统的集成方案</li>
+                </ul>
+
+                <h2>总结</h2>
+                <p>nanobot-webui 是一个非常有价值的开源项目，它将强大的AI助手能力与现代化的Web管理界面完美结合。无论你是想提升个人工作效率，还是寻找一个可扩展的AI Agent开发平台，都值得一试。</p>
+
+                <p><strong>项目地址</strong>：<a href="https://github.com/codemo1991/nanobot-webui" target="_blank">https://github.com/codemo1991/nanobot-webui</a></p>
+
+                <div class="tip">
+                    <strong>个人评价</strong>：作为一个长期关注AI工具的技术博主，我认为nanobot-webui在易用性和功能性之间找到了很好的平衡点。它既保留了原版nanobot的轻量级特性，又通过Web界面大大降低了使用门槛。特别适合那些想要拥有个人AI助手但又不想折腾复杂配置的开发者。
+                </div>
+
+                <h3>互动话题</h3>
+                <p>你使用过哪些AI助手工具？对于个人AI助手，你最看重哪些功能？欢迎在评论区分享你的看法！</p>
+
+                <p><em>（本文图片均来自nanobot-webui项目GitHub仓库，遵循项目开源协议）</em></p>
+
+                <a href="../index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../archive.html">归档</a></li>
+                        <li><a href="../tags.html">标签</a></li>
+                        <li><a href="../rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/codemo1991"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
