@@ -1,56 +1,72 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-{% seo %}
-    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/modern-style.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% seo %}
     {% feed_meta %}
     {% if jekyll.environment == 'production' and site.google_analytics %}
     {% include analytics.html %}
     {% endif %}
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
-        
-        {% if site.logo %}
-          <img src="{{ site.logo | relative_url }}" alt="Logo" />
-        {% endif %}
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
+                <ul class="nav-links">
+                    <li><a href="{{ '/' | relative_url }}">首页</a></li>
+                    <li><a href="{{ '/about' | relative_url }}">关于</a></li>
+                    <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
+                    <li><a href="{{ '/tags' | relative_url }}">标签</a></li>
+                    <li><a href="{{ '/contact' | relative_url }}">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
+    <main class="container">
+        {{ content }}
+    </main>
 
-        {% if site.github.is_project_page %}
-        <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
-        {% endif %}
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>{{ site.title }}</h3>
+                    <p>{{ site.description }}</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="{{ '/' | relative_url }}">首页</a></li>
+                        <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
+                        <li><a href="{{ '/tags' | relative_url }}">标签</a></li>
+                        <li><a href="{{ '/feed.xml' | relative_url }}">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="{{ site.github.owner_url }}"><i class="fab fa-github"></i> GitHub</a></li>
+                        {% if site.email %}
+                        <li><a href="mailto:{{ site.email }}"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
 
-        {% if site.github.is_user_page %}
-        <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
-        {% endif %}
-
-        {% if site.show_downloads %}
-        <ul class="downloads">
-          <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
-          <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
-        </ul>
-        {% endif %}
-      </header>
-      <section>
-
-      {{ content }}
-
-      </section>
-      <footer>
-        {% if site.github.is_project_page %}
-        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-        {% endif %}
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
-  </body>
+    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+</body>
 </html>
