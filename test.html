@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Test</title>
+    <link rel="stylesheet" href="/chris/assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>CSS Test Page</h1>
+            <p>Testing if CSS loads correctly</p>
+        </header>
+        <section>
+            <h2>Test Content</h2>
+            <p>If this page has styles (white background, centered content, etc.), then CSS is loading correctly.</p>
+            <div style="background: #e8f4f8; padding: 20px; border-radius: 5px;">
+                <h3>CSS Status</h3>
+                <p id="css-status">Checking...</p>
+            </div>
+        </section>
+    </div>
+    <script>
+        // Check if CSS is loaded
+        setTimeout(function() {
+            var wrapper = document.querySelector('.wrapper');
+            var computedStyle = window.getComputedStyle(wrapper);
+            
+            if (computedStyle.backgroundColor === 'rgb(255, 255, 255)' || 
+                computedStyle.maxWidth === '800px') {
+                document.getElementById('css-status').innerHTML = '✅ CSS is loading correctly!';
+                document.getElementById('css-status').style.color = 'green';
+            } else {
+                document.getElementById('css-status').innerHTML = '❌ CSS may not be loading';
+                document.getElementById('css-status').style.color = 'red';
+            }
+        }, 100);
+    </script>
+</body>
+</html>
