@@ -22,6 +22,10 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
 
+# Redirects for assets
+include:
+  - _redirects
+
 # Minima theme settings
 minima:
   skin: auto

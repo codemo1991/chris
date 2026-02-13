@@ -1,0 +1,2 @@
+# Redirect assets to correct path
+/assets/* /chris/assets/:splat 301
