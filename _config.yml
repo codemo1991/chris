@@ -1,9 +1,9 @@
 # Site settings
-title: "Linjifeng's Blog"
+title: "Chris's Blog"
 description: "Personal blog about technology, programming, and thoughts"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://linjifeng.github.io" # the base hostname & protocol for your site
-github_username: linjifeng
+url: "https://codemo1991.github.io" # the base hostname & protocol for your site
+github_username: codemo1991
 
 # Build settings
 markdown: kramdown
@@ -28,6 +28,6 @@ minima:
   date_format: "%Y-%m-%d"
   social_links:
     - platform: github
-      user_url: "https://github.com/linjifeng"
+      user_url: "https://github.com/codemo1991"
     - platform: email
-      user_url: "mailto:linjifeng@gyenno.com"
+      user_url: "mailto:codemo1991@example.com"
