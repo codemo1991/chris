@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>我的技术博客</title>
+    <link>https://yourdomain.github.io/chris/</link>
+    <description>记录技术成长，分享开发经验。专注于AI、Web开发和自动化工具的技术博客。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 22 Feb 2026 12:00:00 +0000</lastBuildDate>
+    <generator>GitHub Pages</generator>
+    <atom:link href="https://yourdomain.github.io/chris/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <!-- 每日热点 -->
+    <item>
+      <title>2026年2月22日 IT热点新闻</title>
+      <link>https://yourdomain.github.io/chris/posts/daily-hotspot-2026-02-22.html</link>
+      <guid isPermaLink="true">https://yourdomain.github.io/chris/posts/daily-hotspot-2026-02-22.html</guid>
+      <description>今日精选5条最重要的IT行业热点新闻，涵盖AI、操作系统、硬件和开源技术等领域的最新动态。</description>
+      <pubDate>Sat, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <category>热点资讯</category>
+      <category>AI</category>
+      <category>科技</category>
+    </item>
+
+    <!-- 文章: nanobot-webui -->
+    <item>
+      <title>nanobot-webui：为个人AI助手打造现代化的Web管理界面</title>
+      <link>https://yourdomain.github.io/chris/posts/nanobot-webui.html</link>
+      <guid isPermaLink="true">https://yourdomain.github.io/chris/posts/nanobot-webui.html</guid>
+      <description>详细介绍nanobot-webui开源项目，这是一个基于nanobot的现代化Web界面，让个人AI助手的管理变得简单直观。</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
+      <category>AI开发</category>
+      <category>AI助手</category>
+      <category>开源项目</category>
+      <category>Web开发</category>
+    </item>
+
+    <!-- 文章: 如何搭建GitHub博客 -->
+    <item>
+      <title>如何搭建GitHub博客</title>
+      <link>https://yourdomain.github.io/chris/posts/first-post.html</link>
+      <guid isPermaLink="true">https://yourdomain.github.io/chris/posts/first-post.html</guid>
+      <description>详细记录使用GitHub Pages搭建个人技术博客的完整过程，包括主题选择、配置优化和自动化部署。</description>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
+      <category>AI开发</category>
+      <category>GitHub</category>
+      <category>博客</category>
+      <category>技术</category>
+    </item>
+
+    <!-- 文章: 优化nanobot-webui -->
+    <item>
+      <title>优化nanobot-webui的经验分享</title>
+      <link>https://yourdomain.github.io/chris/posts/optimize-nanobot-webui.html</link>
+      <guid isPermaLink="true">https://yourdomain.github.io/chris/posts/optimize-nanobot-webui.html</guid>
+      <description>分享在优化nanobot-webui项目中的实践经验和遇到的问题解决方案。</description>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <category>Web开发</category>
+      <category>AI助手</category>
+      <category>WebUI</category>
+      <category>优化</category>
+    </item>
+
+  </channel>
+</rss>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签 | 我的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tags-page {
+            padding: 3rem 0;
+        }
+
+        .tags-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tags-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .tags-subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .tag-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .tag-count {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.15rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tag-item:hover .tag-count {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .tag-section {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .tag-section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .tag-section-title i {
+            color: var(--primary-color);
+        }
+
+        .tag-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .tag-post-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .tag-post-item:hover {
+            transform: translateX(8px);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .tag-post-date {
+            min-width: 100px;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .tag-post-title {
+            flex: 1;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .tag-post-item:hover .tag-post-title {
+            color: var(--primary-color);
+        }
+
+        .tag-post-category {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .popular-tags {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .popular-tag-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .popular-tag-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .popular-tag-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .popular-tag-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .popular-tag-name i {
+            color: var(--primary-color);
+        }
+
+        .popular-tag-count {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .popular-tag-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .popular-tag-post {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .popular-tag-post:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        .popular-tag-post::before {
+            content: '•';
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .tag-post-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .tag-post-date {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="hotspots.html">热点</a></li>
+                    <li><a href="about.html">关于</a></li>
+                    <li><a href="archive.html">归档</a></li>
+                    <li><a href="tags.html" class="active">标签</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="tags-page">
+            <div class="tags-header">
+                <h1 class="tags-title">标签</h1>
+                <p class="tags-subtitle">通过标签快速找到感兴趣的技术文章。每个标签下收录了相关的技术文章。</p>
+            </div>
+
+            <!-- 标签云 -->
+            <div class="tags-cloud">
+                <a href="#ai" class="tag-item">
+                    <i class="fas fa-robot"></i>
+                    AI
+                    <span class="tag-count">3</span>
+                </a>
+                <a href="#web" class="tag-item">
+                    <i class="fas fa-globe"></i>
+                    Web开发
+                    <span class="tag-count">3</span>
+                </a>
+                <a href="#github" class="tag-item">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                    <span class="tag-count">1</span>
+                </a>
+                <a href="#blog" class="tag-item">
+                    <i class="fas fa-blog"></i>
+                    博客
+                    <span class="tag-count">1</span>
+                </a>
+                <a href="#open-source" class="tag-item">
+                    <i class="fas fa-code"></i>
+                    开源项目
+                    <span class="tag-count">2</span>
+                </a>
+                <a href="#tech" class="tag-item">
+                    <i class="fas fa-laptop-code"></i>
+                    技术
+                    <span class="tag-count">1</span>
+                </a>
+                <a href="#hotspot" class="tag-item">
+                    <i class="fas fa-fire"></i>
+                    热点
+                    <span class="tag-count">1</span>
+                </a>
+                <a href="#optimize" class="tag-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    优化
+                    <span class="tag-count">1</span>
+                </a>
+            </div>
+
+            <!-- 热门标签 -->
+            <h2 class="tag-section-title">
+                <i class="fas fa-star"></i> 热门标签
+            </h2>
+            <div class="popular-tags">
+                <!-- AI 标签 -->
+                <div class="popular-tag-card" id="ai">
+                    <div class="popular-tag-header">
+                        <span class="popular-tag-name">
+                            <i class="fas fa-robot"></i> AI
+                        </span>
+                        <span class="popular-tag-count">3篇文章</span>
+                    </div>
+                    <div class="popular-tag-posts">
+                        <a href="posts/daily-hotspot-2026-02-22.html" class="popular-tag-post">2026年2月22日 IT热点新闻</a>
+                        <a href="posts/nanobot-webui.html" class="popular-tag-post">nanobot-webui：为个人AI助手打造现代化的Web管理界面</a>
+                        <a href="posts/optimize-nanobot-webui.html" class="popular-tag-post">优化nanobot-webui的经验分享</a>
+                    </div>
+                </div>
+
+                <!-- Web开发 标签 -->
+                <div class="popular-tag-card" id="web">
+                    <div class="popular-tag-header">
+                        <span class="popular-tag-name">
+                            <i class="fas fa-globe"></i> Web开发
+                        </span>
+                        <span class="popular-tag-count">3篇文章</span>
+                    </div>
+                    <div class="popular-tag-posts">
+                        <a href="posts/daily-hotspot-2026-02-22.html" class="popular-tag-post">2026年2月22日 IT热点新闻</a>
+                        <a href="posts/nanobot-webui.html" class="popular-tag-post">nanobot-webui：为个人AI助手打造现代化的Web管理界面</a>
+                        <a href="posts/optimize-nanobot-webui.html" class="popular-tag-post">优化nanobot-webui的经验分享</a>
+                    </div>
+                </div>
+
+                <!-- 开源项目 标签 -->
+                <div class="popular-tag-card" id="open-source">
+                    <div class="popular-tag-header">
+                        <span class="popular-tag-name">
+                            <i class="fas fa-code"></i> 开源项目
+                        </span>
+                        <span class="popular-tag-count">2篇文章</span>
+                    </div>
+                    <div class="popular-tag-posts">
+                        <a href="posts/nanobot-webui.html" class="popular-tag-post">nanobot-webui：为个人AI助手打造现代化的Web管理界面</a>
+                        <a href="posts/optimize-nanobot-webui.html" class="popular-tag-post">优化nanobot-webui的经验分享</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 按标签分类的文章 -->
+            <div class="tag-section">
+                <h2 class="tag-section-title">
+                    <i class="fas fa-list"></i> 所有标签文章
+                </h2>
+                <div class="tag-posts">
+                    <a href="posts/daily-hotspot-2026-02-22.html" class="tag-post-item">
+                        <span class="tag-post-date">2026年2月22日</span>
+                        <span class="tag-post-title">2026年2月22日 IT热点新闻</span>
+                        <span class="tag-post-category"><i class="fas fa-folder"></i> 热点资讯</span>
+                    </a>
+                    <a href="posts/nanobot-webui.html" class="tag-post-item">
+                        <span class="tag-post-date">2026年2月13日</span>
+                        <span class="tag-post-title">nanobot-webui：为个人AI助手打造现代化的Web管理界面</span>
+                        <span class="tag-post-category"><i class="fas fa-folder"></i> AI开发</span>
+                    </a>
+                    <a href="posts/first-post.html" class="tag-post-item">
+                        <span class="tag-post-date">2026年2月13日</span>
+                        <span class="tag-post-title">如何搭建GitHub博客</span>
+                        <span class="tag-post-category"><i class="fas fa-folder"></i> AI开发</span>
+                    </a>
+                    <a href="posts/optimize-nanobot-webui.html" class="tag-post-item">
+                        <span class="tag-post-date">2026年2月12日</span>
+                        <span class="tag-post-title">优化nanobot-webui的经验分享</span>
+                        <span class="tag-post-category"><i class="fas fa-folder"></i> Web开发</span>
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="hotspots.html">热点</a></li>
+                        <li><a href="archive.html">归档</a></li>
+                        <li><a href="tags.html">标签</a></li>
+                        <li><a href="rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/codemo1991"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

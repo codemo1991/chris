@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章归档 | 我的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .archive-page {
+            padding: 3rem 0;
+        }
+
+        .archive-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .archive-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .archive-subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .archive-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .archive-year {
+            margin-bottom: 3rem;
+        }
+
+        .year-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .year-label {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .year-count {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .archive-list {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .archive-list::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+
+        .archive-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .archive-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .archive-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: 3px solid var(--bg-color);
+        }
+
+        .archive-item-date {
+            display: inline-block;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .archive-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .archive-item h3 a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .archive-item h3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .archive-item-excerpt {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .archive-item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .archive-item-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .archive-item-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .archive-item-tag {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .archive-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .archive-list {
+                padding-left: 1.5rem;
+            }
+
+            .archive-item::before {
+                left: -1.5rem;
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="hotspots.html">热点</a></li>
+                    <li><a href="about.html">关于</a></li>
+                    <li><a href="archive.html" class="active">归档</a></li>
+                    <li><a href="tags.html">标签</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="archive-page">
+            <div class="archive-header">
+                <h1 class="archive-title">文章归档</h1>
+                <p class="archive-subtitle">这里汇总了我所有的技术文章，按照时间顺序整理，方便你按月份浏览和查找感兴趣的内容。</p>
+            </div>
+
+            <div class="archive-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">文章总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">本月更新</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">标签总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">持续更新</div>
+                </div>
+            </div>
+
+            <div class="archive-timeline">
+                <!-- 2026年 -->
+                <div class="archive-year">
+                    <div class="year-header">
+                        <span class="year-label">2026年</span>
+                        <span class="year-count">4篇文章</span>
+                    </div>
+
+                    <div class="archive-list">
+                        <!-- 文章1 -->
+                        <article class="archive-item">
+                            <span class="archive-item-date">2026年2月22日</span>
+                            <h3><a href="posts/daily-hotspot-2026-02-22.html">2026年2月22日 IT热点新闻</a></h3>
+                            <p class="archive-item-excerpt">今日精选5条最重要的IT行业热点新闻，涵盖AI、操作系统、硬件和开源技术等领域的最新动态。</p>
+                            <div class="archive-item-meta">
+                                <span class="archive-item-category"><i class="fas fa-folder"></i> 热点资讯</span>
+                                <div class="archive-item-tags">
+                                    <span class="archive-item-tag">AI</span>
+                                    <span class="archive-item-tag">科技</span>
+                                    <span class="archive-item-tag">热点</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 文章2 -->
+                        <article class="archive-item">
+                            <span class="archive-item-date">2026年2月13日</span>
+                            <h3><a href="posts/nanobot-webui.html">nanobot-webui：为个人AI助手打造现代化的Web管理界面</a></h3>
+                            <p class="archive-item-excerpt">详细介绍nanobot-webui开源项目，这是一个基于nanobot的现代化Web界面，让个人AI助手的管理变得简单直观。</p>
+                            <div class="archive-item-meta">
+                                <span class="archive-item-category"><i class="fas fa-folder"></i> AI开发</span>
+                                <div class="archive-item-tags">
+                                    <span class="archive-item-tag">AI助手</span>
+                                    <span class="archive-item-tag">开源项目</span>
+                                    <span class="archive-item-tag">Web开发</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 文章3 -->
+                        <article class="archive-item">
+                            <span class="archive-item-date">2026年2月13日</span>
+                            <h3><a href="posts/first-post.html">如何搭建GitHub博客</a></h3>
+                            <p class="archive-item-excerpt">详细记录使用GitHub Pages搭建个人技术博客的完整过程，包括主题选择、配置优化和自动化部署。</p>
+                            <div class="archive-item-meta">
+                                <span class="archive-item-category"><i class="fas fa-folder"></i> AI开发</span>
+                                <div class="archive-item-tags">
+                                    <span class="archive-item-tag">GitHub</span>
+                                    <span class="archive-item-tag">博客</span>
+                                    <span class="archive-item-tag">技术</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 文章4 -->
+                        <article class="archive-item">
+                            <span class="archive-item-date">2026年2月12日</span>
+                            <h3><a href="posts/optimize-nanobot-webui.html">优化nanobot-webui的经验分享</a></h3>
+                            <p class="archive-item-excerpt">分享在优化nanobot-webui项目中的实践经验和遇到的问题解决方案。</p>
+                            <div class="archive-item-meta">
+                                <span class="archive-item-category"><i class="fas fa-folder"></i> Web开发</span>
+                                <div class="archive-item-tags">
+                                    <span class="archive-item-tag">AI助手</span>
+                                    <span class="archive-item-tag">WebUI</span>
+                                    <span class="archive-item-tag">优化</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="hotspots.html">热点</a></li>
+                        <li><a href="archive.html">归档</a></li>
+                        <li><a href="tags.html">标签</a></li>
+                        <li><a href="rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/codemo1991"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

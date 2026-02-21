@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热点新闻归档 | 我的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hotspots-archive {
+            padding: 3rem 0;
+        }
+        
+        .archive-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .archive-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .archive-description {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .hotspot-archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .hotspot-archive-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid #f97316;
+        }
+        
+        .hotspot-archive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hotspot-archive-date {
+            display: inline-block;
+            background-color: #f97316;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .hotspot-archive-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .hotspot-archive-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .hotspot-archive-title a:hover {
+            color: var(--primary-color);
+        }
+        
+        .hotspot-archive-desc {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .hotspot-archive-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+        
+        .hotspot-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            border: 2px dashed var(--border-color);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--text-color);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .empty-state p {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/hotspots.html" class="active">热点</a></li>
+                    <li><a href="/about.html">关于</a></li>
+                    <li><a href="/archive.html">归档</a></li>
+                    <li><a href="/tags.html">标签</a></li>
+                    <li><a href="/contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hotspots-archive">
+            <div class="archive-header">
+                <h1 class="archive-title">热点新闻归档</h1>
+                <p class="archive-description">收录每日精选的IT行业热点新闻，涵盖AI、科技、互联网等领域的最新动态和发展趋势。</p>
+            </div>
+
+            <div class="hotspot-archive-grid">
+                <!-- 热点文章1 -->
+                <article class="hotspot-archive-card">
+                    <span class="hotspot-archive-date">2026年2月22日</span>
+                    <h3 class="hotspot-archive-title">
+                        <a href="posts/daily-hotspot-2026-02-22.html">2026年2月22日 IT热点新闻</a>
+                    </h3>
+                    <p class="hotspot-archive-desc">今日精选5条最重要的IT行业热点新闻，涵盖AI、操作系统、硬件和开源技术等领域的最新动态。</p>
+                    <div class="hotspot-archive-meta">
+                        <span class="hotspot-count"><i class="fas fa-fire"></i> 5条热点</span>
+                        <span>阅读时间：10分钟</span>
+                    </div>
+                </article>
+
+                <!-- 更多热点文章可以在这里添加 -->
+                <!--
+                <article class="hotspot-archive-card">
+                    <span class="hotspot-archive-date">2026年2月21日</span>
+                    <h3 class="hotspot-archive-title">
+                        <a href="posts/daily-hotspot-2026-02-21.html">2026年2月21日 IT热点新闻</a>
+                    </h3>
+                    <p class="hotspot-archive-desc">今日热点新闻描述...</p>
+                    <div class="hotspot-archive-meta">
+                        <span class="hotspot-count"><i class="fas fa-fire"></i> 5条热点</span>
+                        <span>阅读时间：10分钟</span>
+                    </div>
+                </article>
+                -->
+            </div>
+
+            <div class="empty-state">
+                <i class="fas fa-newspaper"></i>
+                <h3>更多热点即将到来</h3>
+                <p>我们会持续更新每日热点新闻，敬请期待更多精彩内容。</p>
+                <a href="/" class="btn-outline">返回首页</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="/" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/hotspots.html">热点</a></li>
+                        <li><a href="/archive.html">归档</a></li>
+                        <li><a href="/tags.html">标签</a></li>
+                        <li><a href="/rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/codemo1991"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
