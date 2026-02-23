@@ -1,0 +1,53 @@
+title: Chris的技术博客
+description: 分享编程、AI、Web开发等技术心得
+author: Chris
+url: ""
+baseurl: ""
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+highlighter: rouge
+
+# Build settings
+future: true
+show_drafts: false
+limit_posts: 10
+safe: true
+
+# Paginate
+paginate: 5
+paginate_path: "/page:num/"
+
+# Gems
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-feed
+
+# Exclude
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Include
+include:
+  - _pages
+
+# Default fields
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
