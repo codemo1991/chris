@@ -6,6 +6,7 @@ categories: AI开发
 tags: [nanobot, AI助手, 定时任务, 日历, APScheduler, 开源项目]
 author: Chris
 read_time: 约6分钟
+description: nanobot-webui重大更新：定时任务系统Cron和日历系统Calendar的技术实现详解。
 ---
 
 > 近期，nanobot-webui 迎来了重大更新，正式引入了**定时任务系统（Cron）**和**日历系统（Calendar）**。这两个功能的加入，让 nanobot 不再仅仅是一个对话助手，而是进化为一个真正的个人 AI 助手，能够帮你自动执行任务、管理日程。本文将详细介绍这两个新功能的使用方法和技术实现。

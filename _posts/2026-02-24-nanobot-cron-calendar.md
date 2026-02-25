@@ -6,6 +6,7 @@ categories: AI开发
 tags: [nanobot, AI助手, 定时任务, 日历, APScheduler, 开源项目]
 author: 技术博主
 read_time: 约6分钟
+description: nanobot新增定时任务和日历系统，让AI助手能够主动执行任务和管理时间。
 ---
 
 > nanobot 近期又带来了两个重磅新功能：**定时任务（Cron）** 和 **日历系统（Calendar）**。这两个功能让 nanobot 不再只是一个被动的 AI 助手，而是能够主动为你执行任务、管理时间的智能助手。今天就让我们一起来详细了解一下这两个新功能。
