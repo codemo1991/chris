@@ -1,8 +1,8 @@
 title: Chris的技术博客
 description: 分享编程、AI、Web开发等技术心得
 author: Chris
-url: ""
-baseurl: ""
+url: "https://codemo1991.github.io"
+baseurl: "/chris"
 permalink: /:year/:month/:day/:title/
 
 markdown: kramdown
