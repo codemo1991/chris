@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日热点示例 - 我的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">我的博客</a>
+                <ul class="nav-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/about.html">关于</a></li>
+                    <li><a href="/archive.html">归档</a></li>
+                    <li><a href="/tags.html">标签</a></li>
+                    <li><a href="/contact.html">联系</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>每日热点模块示例</h1>
+            <p>展示如何添加和管理每日IT热点新闻</p>
+            <a href="/" class="btn">返回首页</a>
+        </section>
+
+        <section class="posts">
+            <h2>如何添加新的热点新闻</h2>
+            <div class="post-card">
+                <div class="post-meta">
+                    <span class="date">2026年2月22日</span>
+                    <span class="category">教程</span>
+                </div>
+                <h3>每日热点模块使用指南</h3>
+                <p>每日热点模块已经成功添加到你的博客中。以下是使用说明：</p>
+                
+                <h4>1. 热点数据结构</h4>
+                <pre><code>&lt;article class="hotspot-card"&gt;
+    &lt;div class="hotspot-rank"&gt;1&lt;/div&gt;
+    &lt;div class="hotspot-content"&gt;
+        &lt;h3&gt;&lt;a href="#" target="_blank"&gt;新闻标题&lt;/a&gt;&lt;/h3&gt;
+        &lt;p&gt;新闻摘要内容...&lt;/p&gt;
+        &lt;div class="hotspot-meta"&gt;
+            &lt;span class="source"&gt;来源：媒体名称&lt;/span&gt;
+            &lt;span class="time"&gt;发布时间&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+                
+                <h4>2. 如何更新热点新闻</h4>
+                <p>要更新每日热点新闻，只需编辑 <code>index.html</code> 文件中的热点部分：</p>
+                <ul>
+                    <li>修改热点标题和链接</li>
+                    <li>更新新闻摘要内容</li>
+                    <li>调整来源和时间信息</li>
+                    <li>根据需要调整排名顺序</li>
+                </ul>
+                
+                <h4>3. 自动日期更新</h4>
+                <p>热点模块会自动更新日期显示，无需手动修改。</p>
+                
+                <h4>4. 样式自定义</h4>
+                <p>可以在 <code>css/style.css</code> 中自定义热点样式：</p>
+                <ul>
+                    <li>修改排名颜色：<code>--hotspot-rank-1</code> 到 <code>--hotspot-rank-5</code></li>
+                    <li>调整卡片样式</li>
+                    <li>修改动画效果</li>
+                </ul>
+                
+                <h4>5. 未来扩展建议</h4>
+                <p>可以考虑添加以下功能：</p>
+                <ul>
+                    <li>从RSS源自动获取新闻</li>
+                    <li>添加热点分类筛选</li>
+                    <li>实现热点搜索功能</li>
+                    <li>添加用户评论功能</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="about-preview">
+            <h2>需要帮助？</h2>
+            <p>如果你在使用每日热点模块时遇到任何问题，或者想要添加更多功能，请随时联系我。</p>
+            <a href="/contact.html" class="btn-outline">联系我</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>记录技术成长，分享开发经验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/archive.html">归档</a></li>
+                        <li><a href="/tags.html">标签</a></li>
+                        <li><a href="/rss.xml">RSS订阅</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li><a href="https://github.com/yourusername"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

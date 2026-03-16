@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的技术博客</title>
+    <title>Chris的技术博客</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -11,13 +11,12 @@
     <header>
         <nav class="navbar">
             <div class="container">
-                <a href="/" class="logo">我的博客</a>
+                <a href="/" class="logo">Chris的技术博客</a>
                 <ul class="nav-links">
                     <li><a href="/">首页</a></li>
                     <li><a href="/about.html">关于</a></li>
                     <li><a href="/archive.html">归档</a></li>
                     <li><a href="/tags.html">标签</a></li>
-                    <li><a href="/contact.html">联系</a></li>
                 </ul>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
@@ -29,13 +28,28 @@
     <main class="container">
         <section class="hero">
             <h1>欢迎来到我的技术博客</h1>
-            <p>分享编程、AI、Web开发等技术心得</p>
+            <p>分享AI、Agent架构、Web开发等技术心得</p>
             <a href="#recent-posts" class="btn">查看最新文章</a>
         </section>
 
         <section id="recent-posts" class="posts">
             <h2>最新文章</h2>
             <div class="post-grid">
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年3月16日</span>
+                        <span class="category">系统架构</span>
+                    </div>
+                    <h3><a href="posts/agent-microkernel.html">Nanobot Agent微内核架构：重新定义AI Agent的设计范式</a></h3>
+                    <p>深入解析nanobot的Agent微内核架构创新，探讨如何用不到5000行代码实现一个功能完备的AI Agent系统。从微内核设计、任务图执行、Capability注册表等核心特性全面解读。</p>
+                    <div class="tags">
+                        <span class="tag">AI Agent</span>
+                        <span class="tag">微内核架构</span>
+                        <span class="tag">系统设计</span>
+                        <span class="tag">nanobot</span>
+                    </div>
+                </article>
+
                 <article class="post-card">
                     <div class="post-meta">
                         <span class="date">2026年2月13日</span>
@@ -52,20 +66,6 @@
 
                 <article class="post-card">
                     <div class="post-meta">
-                        <span class="date">2026年2月13日</span>
-                        <span class="category">AI开发</span>
-                    </div>
-                    <h3><a href="posts/first-post.html">如何搭建GitHub博客</a></h3>
-                    <p>详细记录使用GitHub Pages搭建个人技术博客的完整过程，包括主题选择、配置优化和自动化部署。</p>
-                    <div class="tags">
-                        <span class="tag">GitHub</span>
-                        <span class="tag">博客</span>
-                        <span class="tag">技术</span>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-meta">
                         <span class="date">2026年2月12日</span>
                         <span class="category">Web开发</span>
                     </div>
@@ -77,12 +77,26 @@
                         <span class="tag">优化</span>
                     </div>
                 </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="date">2026年2月11日</span>
+                        <span class="category">技术教程</span>
+                    </div>
+                    <h3><a href="posts/first-post.html">如何搭建GitHub博客</a></h3>
+                    <p>详细记录使用GitHub Pages搭建个人技术博客的完整过程，包括主题选择、配置优化和自动化部署。</p>
+                    <div class="tags">
+                        <span class="tag">GitHub</span>
+                        <span class="tag">博客</span>
+                        <span class="tag">技术</span>
+                    </div>
+                </article>
             </div>
         </section>
 
         <section class="about-preview">
             <h2>关于我</h2>
-            <p>我是一名热爱技术的开发者，专注于AI、Web开发和自动化工具。在这里分享我的学习和实践经验。</p>
+            <p>我是一名热爱技术的开发者，专注于AI Agent、Web开发和自动化工具。nanobot 项目贡献者，在这里分享我的学习和实践经验。</p>
             <a href="/about.html" class="btn-outline">了解更多</a>
         </section>
     </main>
@@ -91,7 +105,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>我的博客</h3>
+                    <h3>Chris的技术博客</h3>
                     <p>记录技术成长，分享开发经验</p>
                 </div>
                 <div class="footer-section">
@@ -106,13 +120,13 @@
                 <div class="footer-section">
                     <h3>联系</h3>
                     <ul>
-                        <li><a href="https://github.com/yourusername"><i class="fab fa-github"></i> GitHub</a></li>
-                        <li><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> 邮箱</a></li>
+                        <li><a href="https://github.com/codemo1991"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="https://codemo1991.github.io/chris/"><i class="fas fa-blog"></i> 博客</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 我的技术博客. 保留所有权利.</p>
+                <p>&copy; 2026 Chris的技术博客. 保留所有权利.</p>
             </div>
         </div>
     </footer>

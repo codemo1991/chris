@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanobot Agent微内核架构：重新定义AI Agent的设计范式 | Chris的技术博客</title>
+    <meta name="description" content="深入解析nanobot的Agent微内核架构创新，探讨如何用不到5000行代码实现一个功能完备的AI Agent系统。">
+    <meta name="keywords" content="AI Agent,微内核架构,nanobot,Agent框架,任务图执行,Capability,大模型,系统设计">
+    <meta name="author" content="Chris">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-content { max-width: 850px; margin: 0 auto; padding: 2rem 0; }
+        .article-header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--border-color); }
+        .article-title { font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-color); line-height: 1.3; }
+        .article-meta { display: flex; justify-content: center; gap: 1.5rem; color: var(--text-color); opacity: 0.7; flex-wrap: wrap; }
+        .article-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .article-body { line-height: 1.85; font-size: 1.05rem; }
+        .article-body h2 { font-size: 1.7rem; margin: 3rem 0 1.2rem; color: var(--text-color); border-bottom: 3px solid var(--primary-color); padding-bottom: 0.6rem; }
+        .article-body h3 { font-size: 1.35rem; margin: 2rem 0 1rem; color: var(--text-color); }
+        .article-body p { margin-bottom: 1.2rem; color: var(--text-color); opacity: 0.92; }
+        .article-body ul, .article-body ol { margin-bottom: 1.4rem; padding-left: 1.8rem; }
+        .article-body li { margin-bottom: 0.6rem; }
+        .code-block { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.6rem; padding: 1.2rem; margin: 1.5rem 0; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+        .code-block pre { margin: 0; white-space: pre; }
+        .tip { background-color: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--primary-color); padding: 1.2rem; margin: 1.8rem 0; border-radius: 0 0.6rem 0.6rem 0; }
+        .tip strong { color: var(--primary-color); }
+        .warning { background-color: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.2rem; margin: 1.8rem 0; border-radius: 0 0.6rem 0.6rem 0; }
+        .back-to-home { display: inline-block; margin-top: 3rem; color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 2rem 0; }
+        .feature-item { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.6rem; padding: 1.3rem; }
+        .feature-item h4 { margin-top: 0; color: var(--primary-color); }
+        .architecture-diagram { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; padding: 2rem; margin: 2rem 0; color: white; }
+        .architecture-diagram h3 { color: white; text-align: center; margin-bottom: 1.5rem; }
+        .arch-layer { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .arch-box { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); border-radius: 0.5rem; padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+        .arch-box.highlight { background: rgba(255,255,255,0.3); border-color: rgba(255,255,255,0.6); font-weight: 600; }
+        .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+        .tag { background-color: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; }
+        .highlight-box { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="../index.html" class="logo">Chris的技术博客</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../about.html">关于</a></li>
+                    <li><a href="../archive.html">归档</a></li>
+                    <li><a href="../tags.html">标签</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <article class="article-content">
+            <header class="article-header">
+                <h1 class="article-title">Nanobot Agent微内核架构：重新定义AI Agent的设计范式</h1>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar"></i> 2026年3月16日</span>
+                    <span><i class="far fa-clock"></i> 阅读时间：15分钟</span>
+                    <span><i class="far fa-folder"></i> 系统架构</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">AI Agent</span>
+                    <span class="tag">微内核架构</span>
+                    <span class="tag">系统设计</span>
+                    <span class="tag">nanobot</span>
+                </div>
+            </header>
+            <div class="article-body">
+                <p>在AI Agent开发领域，我们见过太多"重剑无锋"式的复杂框架——动辄数万行代码，依赖层层封装。然而，当我深入研究 <strong>nanobot</strong> 项目时，却被它的设计哲学深深震撼：<span class="highlight-box">仅用约5000行核心代码，就实现了一个功能完备、可扩展性极强的AI Agent系统</span>。</p>
+                <p>今天，让我们一起深入解析 nanobot 的核心架构——<strong>Agent微内核</strong>，看看它是如何用"小而美"的设计思维，重新定义AI Agent的开发范式。</p>
+                <div class="tip"><strong>核心理念</strong>：nanobot 的微内核架构借鉴了操作系统微内核的设计思想——Kernel 只负责最核心的任务调度，其他所有功能都通过可插拔的 Capability 实现。</div>
+                <h2>一、微内核架构全景图</h2>
+                <div class="architecture-diagram">
+                    <h3><i class="fas fa-layer-group"></i> Nanobot 架构分层</h3>
+                    <div class="arch-layer"><div class="arch-box highlight">Kernel (内核)</div></div>
+                    <div class="arch-layer"><div class="arch-box">Runtime (运行时)</div></div>
+                    <div class="arch-layer"><div class="arch-box">Capabilities</div><div class="arch-box">Registry</div><div class="arch-box">Artifacts</div></div>
+                    <div class="arch-layer"><div class="arch-box">Skills</div><div class="arch-box">Channels</div><div class="arch-box">MCP</div></div>
+                </div>
+                <p>Kernel 只做三件事：<strong>接收请求</strong>、<strong>调度任务</strong>、<strong>监控完成</strong>。而具体的任务执行、能力调用都交给 Runtime 和 Capabilities 处理。</p>
+                <h2>二、Kernel：极简而强大的任务调度中枢</h2>
+                <h3>2.1 任务提交：Trace 与 Task</h3>
+                <p>当用户发送消息时，Kernel 会创建 <strong>Trace</strong>（追踪）和 <strong>Root Task</strong>（根任务）。它们存储在 SQLite 数据库中，整个执行过程可持久化、可追溯。</p>
+                <h3>2.2 多 Worker 并发执行</h3>
+                <p>Kernel 支持多个 Worker 协程并发执行任务，通过"租赁"机制避免重复执行。</p>
+                <div class="warning"><strong>亮点设计</strong>：租赁机制——Worker 领取任务时设置租约超时（默认30秒），超时未完成则释放回队列，防止单任务阻塞系统。</div>
+                <h2>三、Runtime：任务执行的核心引擎</h2>
+                <h3>3.1 上下文构建与依赖解析</h3>
+                <p>Runtime 自动解析任务所需的所有输入，通过查询数据库中的依赖关系找到需要的 Artifacts。</p>
+                <h3>3.2 任务状态机</h3>
+                <ul>
+                    <li><code>DONE</code> - 任务成功完成</li>
+                    <li><code>WAITING_CHILDREN</code> - 需要 spawn 子任务</li>
+                    <li><code>WAITING_ARTIFACTS</code> - 等待某些 Artifact</li>
+                    <li><code>FAILED</code> - 执行失败</li>
+                </ul>
+                <h3>3.3 子任务 Spawn 与依赖注入</h3>
+                <p>这是最精妙的设计——父任务输出自动成为子任务输入，兄弟任务共享中间结果，整个执行流程就像一个有向无环图（DAG）。</p>
+                <h2>四、Capability 注册表：可插拔的能力系统</h2>
+                <div class="code-block">
+<pre><code>registry.register(RootAgent())     # 根Agent
+registry.register(PlannerAgent())   # 规划Agent
+registry.register(DrafterAgent())  # 起草Agent
+registry.register(CriticAgent())   # 批评Agent
+registry.register(SearchTool())   # 搜索工具</code></pre>
+                </div>
+                <p>这种设计让系统拥有了像"乐高积木"一样的可扩展性。</p>
+                <h2>五、Skills：开箱即用的插件生态</h2>
+                <div class="feature-list">
+                    <div class="feature-item"><h4>Weather</h4><p>获取天气预报</p></div>
+                    <div class="feature-item"><h4>Docx</h4><p>Word文档处理</p></div>
+                    <div class="feature-item"><h4>PDF</h4><p>PDF读取/合并</p></div>
+                    <div class="feature-item"><h4>PPTX</h4><p>PPT创建</p></div>
+                    <div class="feature-item"><h4>Code Review</h4><p>代码审查</p></div>
+                    <div class="feature-item"><h4>Cron</h4><p>定时任务</p></div>
+                </div>
+                <h2>六、架构创新总结</h2>
+                <div class="feature-list">
+                    <div class="feature-item"><h4>极简内核</h4><p>Kernel 仅约 200 行代码，只负责任务调度</p></div>
+                    <div class="feature-item"><h4>可持久化</h4><p>SQLite 存储 Trace/Task，支持断点恢复</p></div>
+                    <div class="feature-item"><h4>自动依赖</h4><p>子任务自动注入依赖，任务图动态构建</p></div>
+                    <div class="feature-item"><h4>插件生态</h4><p>Skill/MCP/Channel 均可热插拔</p></div>
+                </div>
+                <p>nanobot 证明了 AI Agent 不需要"大而全"的框架——<span class="highlight-box">一个精心设计的微内核，加上丰富的插件生态，就能实现功能强大且易于维护的系统</span>。</p>
+                <p><strong>项目地址</strong>：<a href="https://github.com/HKUDS/nanobot" target="_blank">https://github.com/HKUDS/nanobot</a></p>
+                <a href="../index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> 返回首页</a>
+            </div>
+        </article>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Chris的技术博客. 保留所有权利.</p>
+        </div>
+    </footer>
+    <script src="../js/script.js"></script>
+</body>
+</html>
