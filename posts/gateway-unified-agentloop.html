@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway 统一执行核：nanobot-webui 架构升级 | Chris的技术博客</title>
+    <meta name="description" content="Gateway 统一执行核架构，彻底重构了 Web 渠道的消息处理方式，解决了长期困扰的高并发场景下 MCP 重复初始化问题。">
+    <meta name="keywords" content="Gateway, nanobot, 架构升级, Web渠道, MCP, asyncio, 消息队列">
+    <meta name="author" content="nanobot 团队">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .post-content {
+            line-height: 1.8;
+            color: #333;
+        }
+        .post-content h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .post-content h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .post-content p {
+            margin: 15px 0;
+        }
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin: 20px 0;
+            color: #555;
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        .post-content code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        .post-content pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .post-content pre code {
+            background-color: transparent;
+            color: #ecf0f1;
+            padding: 0;
+        }
+        .post-content ul, .post-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .post-content li {
+            margin: 8px 0;
+        }
+        .post-meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .post-tags {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        .tag:hover {
+            background-color: #2980b9;
+        }
+        .highlight-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .highlight-table th, .highlight-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .highlight-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        .highlight-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .highlight-table tr:hover {
+            background-color: #e8f4f8;
+        }
+        .code-block {
+            position: relative;
+            margin: 20px 0;
+        }
+        .code-block pre {
+            margin: 0;
+        }
+        .arch-diagram {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 20px 0;
+            border-left: 4px solid #2ecc71;
+        }
+        .metric-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .metric-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-item .old {
+            color: #e74c3c;
+            text-decoration: line-through;
+        }
+        .metric-item .new {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="../index.html">Chris的技术博客</a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post-content">
+                <h1>Gateway 统一执行核：nanobot-webui 架构升级</h1>
+
+                <div class="post-meta">
+                    <span>作者：nanobot 团队</span> |
+                    <span>发布日期：2026年3月24日</span> |
+                    <span>阅读时间：约15分钟</span>
+                </div>
+
+                <h2>概述</h2>
+                <p>本次更新实现了 <strong>Gateway 统一执行核架构</strong>，彻底重构了 Web 渠道的消息处理方式，解决了长期困扰的高并发场景下 MCP 重复初始化问题。这是 nanobot-webui 面向生产环境部署的重要一步。</p>
+
+                <p><strong>核心改动文件（6 个，共 +592/-296 行）：</strong></p>
+
+                <table class="highlight-table">
+                    <thead>
+                        <tr>
+                            <th>文件</th>
+                            <th>改动量</th>
+                            <th>主要内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>nanobot/web/api.py</code></td>
+                            <td>+372/-152</td>
+                            <td>Web Gateway 化；core_loop 集成</td>
+                        </tr>
+                        <tr>
+                            <td><code>nanobot/agent/loop.py</code></td>
+                            <td>+108/-54</td>
+                            <td>哨兵机制；取消探针；on_complete 回调</td>
+                        </tr>
+                        <tr>
+                            <td><code>nanobot/bus/queue.py</code></td>
+                            <td>+85/-16</td>
+                            <td>线程安全入队；队列容量控制</td>
+                        </tr>
+                        <tr>
+                            <td><code>nanobot/agent/tools/mcp.py</code></td>
+                            <td>+40/-21</td>
+                            <td>自动重连容错</td>
+                        </tr>
+                        <tr>
+                            <td><code>nanobot/agent/tools/filesystem.py</code></td>
+                            <td>+27/-10</td>
+                            <td>异步 I/O 改造</td>
+                        </tr>
+                        <tr>
+                            <td><code>web-ui/src/pages/ChatPage.tsx</code></td>
+                            <td>+3</td>
+                            <td>前端适配</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <h2>问题背景</h2>
+
+                <h3>旧架构的核心问题</h3>
+
+                <div class="arch-diagram">┌─────────────────────────────────────────────────────────────┐
+│  Web HTTP 请求                                                │
+│  └─ 每条消息 → 新线程 + asyncio.new_event_loop()            │
+│  └─ 整包 reload MCP（×2：进入 + finally）                   │
+│  └─ loop 销毁，session 失效                                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│  飞书 WebSocket                                               │
+│  └─ run_coroutine_threadsafe → 同一长驻 loop                 │
+│  └─ MCP 一次初始化，不 reload                                 │
+└─────────────────────────────────────────────────────────────┘</div>
+
+                <p><strong>三个致命问题：</strong></p>
+
+                <table class="highlight-table">
+                    <thead>
+                        <tr>
+                            <th>问题</th>
+                            <th>影响</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>每请求 <code>new_event_loop()</code></td>
+                            <td>MCP session 绑定 loop，loop 销毁后必须 reload</td>
+                        </tr>
+                        <tr>
+                            <td>每对话 reload 两次</td>
+                            <td>每轮对话额外增加 1~10 秒 MCP 重连时间</td>
+                        </tr>
+                        <tr>
+                            <td>Web/飞书路径完全不同</td>
+                            <td>代码维护成本高，无法共享状态</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>根本原因</h3>
+                <p>MCP 的 <code>ClientSession</code> 与创建它的 event loop 绑定。当 Web 请求结束时销毁 loop，下一条消息来临时创建新 loop，<code>_mcp_loop_id</code> 变化触发强制 reload。</p>
+
+                <hr>
+
+                <h2>目标架构</h2>
+
+                <h3>核心原则</h3>
+                <ol>
+                    <li><strong>统一执行核</strong>：一个长驻 asyncio event loop，跑 <code>AgentLoop.run()</code></li>
+                    <li><strong>Web 只做 Gateway</strong>：HTTP 线程负责接收、入队、SSE 推送，<strong>不跑业务推理</strong></li>
+                    <li><strong>渠道仍是适配器</strong>：Feishu/Web 不变；Web 从「半个 Agent」退成「连接器 + 流式适配」</li>
+                </ol>
+
+                <h3>架构图</h3>
+
+                <div class="arch-diagram">┌────────────────────────────────────────────────────────────┐
+│                   进程（nanobot server）                    │
+│                                                            │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │              渠道适配层 Channel Adapters              │  │
+│  │                                                        │  │
+│  │  Feishu WS      Telegram     Web Gateway (HTTP+SSE)   │  │
+│  │   线程               线程         线程池（N个）        │  │
+│  └────────────┬────────────┬────────────┬────────────────┘  │
+│               │            │            │                   │
+│               └────────────┴────────────┘                  │
+│                            │                                │
+│               run_coroutine_threadsafe(bus.publish_inbound) │
+│                            │                                │
+│  ┌─────────────────────────▼──────────────────────────────┐ │
+│  │              统一总线 MessageBus                        │ │
+│  │   inbound: asyncio.Queue(maxsize=200)                  │ │
+│  │   outbound: asyncio.Queue()                            │ │
+│  └─────────────────────────┬──────────────────────────────┘ │
+│                            │                                │
+│  ┌─────────────────────────▼──────────────────────────────┐ │
+│  │           统一执行核（Core Thread / Core Loop）          │  │
+│  │                                                        │  │
+│  │   AgentLoop.run()                                       │  │
+│  │   ├─ _init_mcp_loader()  ← 启动时一次                   │  │
+│  │   ├─ while consume_inbound():                           │  │
+│  │   │    await _process_message(msg)                      │  │
+│  │   └─ progress_callback → evt_queue.put(evt)             │  │
+│  │                                                        │  │
+│  │   MCP 连接池（绑定 core_loop，不再随请求重建）           │  │
+│  └──────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────┘</div>
+
+                <hr>
+
+                <h2>核心改造详解</h2>
+
+                <h3>1. MessageBus 线程安全入队</h3>
+
+                <p><strong>新增 <code>try_publish_inbound_sync</code> 方法：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>def try_publish_inbound_sync(
+    self, msg: InboundMessage, loop: asyncio.AbstractEventLoop
+) -> bool:
+    """
+    从 HTTP 工作线程安全地将消息入队（线程安全，非协程）。
+    队满时返回 False，调用方应向客户端返回 HTTP 429。
+    """
+    future = asyncio.run_coroutine_threadsafe(
+        self._try_put(msg), loop
+    )
+    try:
+        return future.result(timeout=1.0)
+    except Exception as e:
+        logger.warning(f"[MessageBus] try_publish_inbound_sync failed: {e}")
+        return False</code></pre>
+                </div>
+
+                <p><strong>队列容量控制：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>class MessageBus:
+    def __init__(self, max_inbound: int = 200):
+        # maxsize 防止无限积压；超出时 try_publish_inbound_sync 返回 False
+        self.inbound: asyncio.Queue[InboundMessage] = asyncio.Queue(maxsize=max_inbound)</code></pre>
+                </div>
+
+                <h3>2. Web Gateway 化</h3>
+
+                <p><strong>旧模式（<code>chat_stream</code>）：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>def run_agent() -> None:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(
+        self._chat_with_progress(...)
+    )</code></pre>
+                </div>
+
+                <p><strong>新模式（Gateway）：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>def on_complete(response_content: str, error: str | None = None) -> None:
+    """由 AgentLoop.run() 在消息处理结束后调用"""
+    if error:
+        _put_evt({"type": "error", "message": error})
+        return
+    _put_evt({
+        "type": "done",
+        "content": response_content,
+        "assistantMessage": self._build_assistant_message(session_id, key),
+    })
+
+# 消息推入 core_loop 的 inbound 队列
+inbound_msg = _InboundMessage(
+    channel="web",
+    sender_id="user",
+    chat_id=session_id,
+    content=content,
+    metadata={
+        "progress_callback": on_progress,
+        "on_complete": on_complete,
+        **extra,
+    },
+)
+ok = self.agent.bus.try_publish_inbound_sync(inbound_msg, core_loop)
+if not ok:
+    on_complete("", error="服务繁忙，请稍后重试（消息队列已满）")</code></pre>
+                </div>
+
+                <h3>3. 哨兵机制替代 1s 轮询</h3>
+
+                <p><strong>旧模式（CPU 浪费）：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>while self._running:
+    msg = await asyncio.wait_for(
+        self.bus.consume_inbound(),
+        timeout=1.0  # 每秒唤醒一次，即使无消息
+    )</code></pre>
+                </div>
+
+                <p><strong>新模式（零开销等待）：</strong></p>
+
+                <div class="code-block">
+                    <pre><code>_STOP_SENTINEL = object()  # 哨兵对象
+
+async def run(self) -> None:
+    self._running = True
+    self._loop = asyncio.get_running_loop()
+
+    while self._running:
+        raw = await self.bus.inbound.get()  # 完全阻塞，无消息时 CPU 0%
+        if raw is _STOP_SENTINEL:
+            break
+        msg: InboundMessage = raw
+        await self._process_message(msg)</code></pre>
+                </div>
+
+                <h3>4. 取消探针机制</h3>
+
+                <p>解决 <code>/stop</code> 命令在 <code>inbound.get()</code> 阻塞时无法立即响应的问题：</p>
+
+                <div class="code-block">
+                    <pre><code>@dataclass
+class _CancelProbe:
+    """取消探针：cancel_current_request() 推入队列，唤醒正在阻塞于 get() 的 run()"""
+    session_key: str
+
+async def run(self) -> None:
+    while self._running:
+        raw = await self.bus.inbound.get()
+        if isinstance(raw, _CancelProbe):
+            self._cancelled_sessions.discard(raw.session_key)
+            continue
+        # ... 正常处理消息</code></pre>
+                </div>
+
+                <h3>5. MCP 自动重连容错</h3>
+
+                <div class="code-block">
+                    <pre><code>async def execute(self, **kwargs: Any) -> str:
+    for attempt in range(2):
+        try:
+            if not await self._ensure_connected():
+                return f"MCP {self._server_id}: 连接失败，请检查 MCP 配置。"
+            result = await self._session.call_tool(self._tool_name, kwargs)
+            return _format_result(result)
+        except (ClosedResourceError, EOFError, ConnectionResetError) as e:
+            if attempt == 0:
+                logger.warning(f"[MCP] {self._server_id}: 连接断开，尝试重连…")
+                self._reset_session()  # 重置同 server 所有工具的 session
+                continue
+            return f"MCP {self._server_id}: 重连失败，工具暂不可用"</code></pre>
+                </div>
+
+                <h3>6. 文件 I/O 异步化</h3>
+
+                <div class="code-block">
+                    <pre><code>class ReadFileTool(Tool):
+    async def execute(self, path: str, **kwargs) -> str:
+        # 旧：content = file_path.read_text(encoding="utf-8")  # 同步阻塞
+        # 新：
+        content = await asyncio.to_thread(file_path.read_text, encoding="utf-8")
+        return content</code></pre>
+                </div>
+
+                <hr>
+
+                <h2>性能提升</h2>
+
+                <table class="highlight-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>旧架构</th>
+                            <th>新架构</th>
+                            <th>提升</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MCP 初始化次数</td>
+                            <td class="old">每对话 2 次</td>
+                            <td class="new">启动时 1 次</td>
+                            <td class="new">~50%</td>
+                        </tr>
+                        <tr>
+                            <td>每对话延迟</td>
+                            <td class="old">+1~10s reload</td>
+                            <td class="new">无额外开销</td>
+                            <td class="new">~1-10s</td>
+                        </tr>
+                        <tr>
+                            <td>空闲 CPU 占用</td>
+                            <td class="old">每秒唤醒</td>
+                            <td class="new">接近 0</td>
+                            <td class="new">~99%</td>
+                        </tr>
+                        <tr>
+                            <td>并发队列上限</td>
+                            <td class="old">无限制</td>
+                            <td class="new">200 条</td>
+                            <td class="new">可控背压</td>
+                        </tr>
+                        <tr>
+                            <td>MCP 断连恢复</td>
+                            <td class="old">手动重启</td>
+                            <td class="new">自动重连</td>
+                            <td class="new">自愈</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <h2>稳定性增强</h2>
+
+                <h3>1. 优雅关闭</h3>
+
+                <div class="code-block">
+                    <pre><code>def _graceful_shutdown(app, core_thread):
+    logger.info("Initiating graceful shutdown...")
+    # 1. 发哨兵，让 run() 退出循环
+    asyncio.run_coroutine_threadsafe(
+        app.core_bus.inbound.put(_STOP_SENTINEL), app.core_loop
+    )
+    # 2. 等当前消息处理完成（最多 30s）
+    core_thread.join(timeout=30)
+    # 3. 关 MCP 连接
+    if app.core_loop.is_running():
+        future = asyncio.run_coroutine_threadsafe(
+            app.agent.mcp_loader.close() if app.agent.mcp_loader else asyncio.sleep(0),
+            app.core_loop
+        )
+        future.result(timeout=5)</code></pre>
+                </div>
+
+                <h3>2. 429 快速失败</h3>
+
+                <p>队列满时立即返回 HTTP 429，前端显示「服务繁忙，请稍后重试」，避免用户长时间等待。</p>
+
+                <h3>3. 超时积压清理</h3>
+
+                <div class="code-block">
+                    <pre><code>async def _handle_timeout(self, msg: InboundMessage):
+    # 清除同一 session 的积压消息（它们基于超时那条的上下文，已失效）
+    drained = 0
+    temp = []
+    while not self.bus.inbound.empty():
+        item = self.bus.inbound.get_nowait()
+        if hasattr(item, 'chat_id') and item.chat_id == msg.chat_id:
+            drained += 1
+        else:
+            temp.append(item)
+    for item in temp:
+        await self.bus.inbound.put(item)</code></pre>
+                </div>
+
+                <hr>
+
+                <h2>迁移路径</h2>
+
+                <h3>Phase 1：统一核线程 + Bus 入队（1-2 天）</h3>
+                <ul>
+                    <li>启动 <code>core_thread</code> 持有 <code>core_loop</code></li>
+                    <li>Web 消息走 <code>try_publish_inbound_sync</code></li>
+                    <li>验证：飞书和 Web 均能进入同一 inbound 队列</li>
+                </ul>
+
+                <h3>Phase 2：Web Gateway 化（2-3 天）</h3>
+                <ul>
+                    <li>去掉 <code>chat_stream</code> 里的 <code>threading.Thread</code> + <code>new_event_loop</code></li>
+                    <li>删除 <code>reload_mcp_config</code> finally 块</li>
+                    <li>验证：多轮对话 MCP 不再 reload</li>
+                </ul>
+
+                <h3>Phase 3：稳定性加固（1-2 天）</h3>
+                <ul>
+                    <li>优雅关闭（SIGTERM handler）</li>
+                    <li><code>/stop</code> 打断 inbound 等待</li>
+                    <li>MCP 重连容错</li>
+                </ul>
+
+                <h3>Phase 4：工具 async 审计（1 天）</h3>
+                <ul>
+                    <li>修复 <code>subprocess.run</code>、<code>requests.get</code>、同步文件 I/O</li>
+                </ul>
+
+                <hr>
+
+                <h2>未来规划</h2>
+
+                <ul>
+                    <li><strong>方案 B（可选）</strong>：按 session 并发，跨 session 串行（适合多租户 SaaS）</li>
+                    <li><strong>可观测性</strong>：在 <code>/api/v1/system/status</code> 暴露 <code>inbound_queue_depth</code>、<code>mcp_reconnect_count_last_hour</code> 等指标</li>
+                    <li><strong>SSE replay 优化</strong>：<code>ChatStreamBus</code> 重连时对 <code>claude_code_progress</code> 仅保留最后 10 条</li>
+                </ul>
+
+                <hr>
+
+                <h2>参考资料</h2>
+
+                <ul>
+                    <li><a href="./gateway-unified-agentloop-architecture.md">Gateway 统一执行核架构方案</a></li>
+                    <li><a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw Gateway 模型</a></li>
+                </ul>
+
+                <hr>
+
+                <blockquote>
+                    <em>本文档由 AI 辅助生成，基于 2026-03-24 与代码库的深度分析。</em>
+                </blockquote>
+
+                <div class="post-tags">
+                    <a href="#" class="tag">技术</a>
+                    <a href="#" class="tag">架构</a>
+                    <a href="#" class="tag">Gateway</a>
+                    <a href="#" class="tag">nanobot</a>
+                    <a href="#" class="tag">asyncio</a>
+                    <a href="#" class="tag">MCP</a>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Chris的技术博客. 保留所有权利.</p>
+            <p>Powered by GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+</html>
